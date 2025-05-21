@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Navbar & Poetry Carousel</title>
+  <title>Navbar & Carousel</title>
   <style>
     body {
       margin: 0;
@@ -12,17 +12,18 @@
 
     /* Navbar */
     .navbar {
-      background-color: #333;
+      background-color: #fdfbd4;
       overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
     }
 
     .navbar a, .dropdown-btn {
-      float: left;
-      display: block;
       color: #f2f2f2;
       padding: 14px 20px;
       text-decoration: none;
       text-align: center;
+      cursor: pointer;
     }
 
     .navbar a:hover, .dropdown:hover .dropdown-btn {
@@ -31,44 +32,56 @@
     }
 
     .dropdown {
-      float: left;
-      overflow: hidden;
+      position: relative;
     }
 
     .dropdown-content {
-      display: none;
       position: absolute;
-      background-color: #f9f9f9;
-      min-width: 150px;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
+      top: 100%;
+      left: 0;
+      background-color: #444;
+      min-width: 180px;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      border-radius: 0 0 8px 8px;
+      z-index: 999;
+      animation: fadeIn 0.3s ease-in-out;
     }
 
     .dropdown-content a {
-      float: none;
-      color: black;
+      color: #f2f2f2;
       padding: 12px 16px;
       text-decoration: none;
       display: block;
-      text-align: left;
     }
 
     .dropdown-content a:hover {
-      background-color: #ddd;
+      background-color: #666;
+      color: #fff;
     }
 
     .dropdown:hover .dropdown-content {
-      display: block;
+      display: flex;
     }
 
-    /* Main Wrapper */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .main-content {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Carousel Background */
     .carousel-wrapper {
       background-color: #ff7f3f;
       padding: 50px 0;
@@ -77,7 +90,6 @@
       width: 100%;
     }
 
-    /* Carousel Card Style */
     .carousel-card {
       width: 800px;
       border-radius: 20px;
@@ -119,7 +131,6 @@
       font-size: 16px;
     }
 
-    /* Arrows */
     .arrow {
       position: absolute;
       top: 45%;
@@ -192,7 +203,7 @@
     <a href="#">Home</a>
     <a href="#">Gallery</a>
     <div class="dropdown">
-      <button class="dropdown-btn">Services</button>
+      <div class="dropdown-btn">Services</div>
       <div class="dropdown-content">
         <a href="#">Web Design</a>
         <a href="#">Hosting</a>
@@ -251,7 +262,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- JavaScript -->
