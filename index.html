@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Navbar & Carousel with Captions</title>
+  <title>Navbar & Hinglish Poetry Carousel</title>
   <style>
     body {
       margin: 0;
@@ -61,89 +61,93 @@
       display: block;
     }
 
-    /* Carousel */
-    .carousel {
-      position: relative;
-      max-width: 100%;
-      height: 400px;
+    /* Carousel Background */
+    .carousel-wrapper {
+      background-color: #ff7f3f;
+      padding: 50px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Carousel Card Style */
+    .carousel-card {
+      width: 800px;
+      border-radius: 20px;
       overflow: hidden;
-      margin: 20px auto;
+      background-color: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
     }
 
     .slide {
       display: none;
-      position: absolute;
-      width: 100%;
-      height: 100%;
     }
 
     .slide.active {
       display: block;
-      position: relative;
     }
 
     .slide img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      display: block;
     }
 
-    .caption {
-      position: absolute;
-      bottom: 30px;
-      left: 50px;
-      background-color: rgba(0,0,0,0.6);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 5px;
-      font-size: 18px;
+    .caption-box {
+      padding: 30px;
+      background-color: #f7f9fc;
+      text-align: left;
     }
 
-    /* Buttons */
-    .prev, .next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0,0,0,0.5);
-      color: white;
-      padding: 10px;
-      border: none;
+    .caption-box h2 {
+      margin: 0 0 10px;
+      color: #222;
+      font-size: 24px;
+    }
+
+    .caption-box p {
+      margin: 0;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      background-color: #f7f9fc;
+    }
+
+    .carousel-btn {
+      color: #fff;
+      font-weight: bold;
       cursor: pointer;
-      font-size: 18px;
+      user-select: none;
+      background-color: transparent;
     }
 
-    .prev {
-      left: 10px;
+    .carousel-btn:hover {
+      text-decoration: underline;
     }
 
-    .next {
-      right: 10px;
-    }
-
-    .prev:hover, .next:hover {
-      background-color: rgba(0,0,0,0.8);
-    }
-
-    /* Indicators */
     .indicators {
       text-align: center;
-      position: absolute;
-      bottom: 15px;
-      width: 100%;
     }
 
     .indicator {
       display: inline-block;
-      height: 12px;
-      width: 12px;
-      margin: 0 4px;
-      background-color: #bbb;
+      height: 10px;
+      width: 10px;
+      margin: 0 5px;
+      background-color: #ddd;
       border-radius: 50%;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
 
     .indicator.active {
-      background-color: #717171;
+      background-color: #ffa500;
     }
   </style>
 </head>
@@ -165,28 +169,41 @@
     <a href="#">About</a>
   </div>
 
-  <!-- Carousel -->
-  <div class="carousel">
-    <div class="slide active">
-      <img src="IMG_0737.jpeg?text=Slide+1" alt="Slide 1">
-      <div class="caption">Welcome to Slide 1 - Explore our features!</div>
-    </div>
-    <div class="slide">
-      <img src="IMG_0738.jpeg?text=Slide+2" alt="Slide 2">
-      <div class="caption">Slide 2 - Clean design and responsive layout</div>
-    </div>
-    <div class="slide">
-      <img src="IMG_0739.jpeg?text=Slide+3" alt="Slide 3">
-      <div class="caption">Slide 3 - Get in touch with us today!</div>
-    </div>
+  <!-- Carousel Section -->
+  <div class="carousel-wrapper">
+    <div class="carousel-card">
+      <div class="slide active">
+        <img src="IMG_0737.jpeg?text=Slide+1" alt="Slide 1">
+        <div class="caption-box">
+          <h2>Khwaabon Ka Safar</h2>
+          <p>Chandni raaton mein baatein teri, dil ke armaan kehte hain kahaani meri.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="IMG_0738.jpeg?text=Slide+2" alt="Slide 2">
+        <div class="caption-box">
+          <h2>Pal Do Pal</h2>
+          <p>Pal do pal ka saath tha tera, par yaadon ka asar gehra.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="IMG_0739.jpeg?text=Slide+3" alt="Slide 3">
+        <div class="caption-box">
+          <h2>Chupke Se</h2>
+          <p>Chupke se aayi thi tu zindagi mein, jaise khushbu kisi phool ki ho hawa mein.</p>
+        </div>
+      </div>
 
-    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
-    <button class="next" onclick="changeSlide(1)">&#10095;</button>
-
-    <div class="indicators">
-      <span class="indicator active" onclick="goToSlide(0)"></span>
-      <span class="indicator" onclick="goToSlide(1)"></span>
-      <span class="indicator" onclick="goToSlide(2)"></span>
+      <!-- Controls -->
+      <div class="carousel-controls">
+        <span class="carousel-btn" onclick="changeSlide(-1)">Prev</span>
+        <div class="indicators">
+          <span class="indicator active" onclick="goToSlide(0)"></span>
+          <span class="indicator" onclick="goToSlide(1)"></span>
+          <span class="indicator" onclick="goToSlide(2)"></span>
+        </div>
+        <span class="carousel-btn" onclick="changeSlide(1)">Next</span>
+      </div>
     </div>
   </div>
 
@@ -201,7 +218,6 @@
         slide.classList.remove("active");
         indicators[i].classList.remove("active");
       });
-
       slides[index].classList.add("active");
       indicators[index].classList.add("active");
     }
@@ -216,7 +232,6 @@
       showSlide(slideIndex);
     }
 
-    // Auto slide every 5 seconds
     setInterval(() => {
       changeSlide(1);
     }, 5000);
