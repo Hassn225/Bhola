@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Navbar with Dropdown & Carousel with Indicators</title>
+  <title>Navbar & Carousel with Captions</title>
   <style>
-    /* General Reset */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
     }
 
-    /* Navbar Styles */
+    /* Navbar */
     .navbar {
       background-color: #333;
       overflow: hidden;
@@ -20,14 +19,14 @@
     .navbar a, .dropdown-btn {
       float: left;
       display: block;
-      color: dark grey;
+      color: #f2f2f2;
       padding: 14px 20px;
       text-decoration: none;
       text-align: center;
     }
 
     .navbar a:hover, .dropdown:hover .dropdown-btn {
-      background-color: blue;
+      background-color: #ddd;
       color: black;
     }
 
@@ -62,7 +61,7 @@
       display: block;
     }
 
-    /* Carousel Styles */
+    /* Carousel */
     .carousel {
       position: relative;
       max-width: 100%;
@@ -71,15 +70,33 @@
       margin: 20px auto;
     }
 
-    .carousel img {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
+    .slide {
       display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
     }
 
-    .carousel img.active {
+    .slide.active {
       display: block;
+      position: relative;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 30px;
+      left: 50px;
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 18px;
     }
 
     /* Buttons */
@@ -150,14 +167,22 @@
 
   <!-- Carousel -->
   <div class="carousel">
-    <img class="slide active" src="IMG_0737.jpeg?text=Slide+1" alt="Slide 1">
-    <img class="slide" src="IMG_0738.jpeg?text=Slide+2" alt="Slide 2">
-    <img class="slide" src="IMG_0739.jpeg?text=Slide+3" alt="Slide 3">
+    <div class="slide active">
+      <img src="IMG_0737.jpeg?text=Slide+1" alt="Slide 1">
+      <div class="caption">Welcome to Slide 1 - Explore our features!</div>
+    </div>
+    <div class="slide">
+      <img src="IMG_0738.jpeg?text=Slide+2" alt="Slide 2">
+      <div class="caption">Slide 2 - Clean design and responsive layout</div>
+    </div>
+    <div class="slide">
+      <img src="IMG_0739.jpeg?text=Slide+3" alt="Slide 3">
+      <div class="caption">Slide 3 - Get in touch with us today!</div>
+    </div>
 
     <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
     <button class="next" onclick="changeSlide(1)">&#10095;</button>
 
-    <!-- Indicators -->
     <div class="indicators">
       <span class="indicator active" onclick="goToSlide(0)"></span>
       <span class="indicator" onclick="goToSlide(1)"></span>
