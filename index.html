@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Navbar & Carousel</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar and Carousel</title>
   <style>
-    body {
+    /* Reset & base */
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #ff7e3c;
     }
 
     /* Navbar */
     .navbar {
       background-color: #545113;
-      overflow: hidden;
       display: flex;
-      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 15px;
+      height: 60px;
     }
 
     .navbar a, .dropdown-btn {
       color: #f2f2f2;
-      padding: 14px 20px;
+      padding: 14px 18px;
       text-decoration: none;
       text-align: center;
       cursor: pointer;
-    }
-
-    .navbar a:hover, .dropdown:hover .dropdown-btn {
-      background-color: #ddd;
-      color: black;
+      font-size: 16px;
+      position: relative;
+      transition: 0.3s;
     }
 
     .dropdown {
@@ -36,164 +43,113 @@
     }
 
     .dropdown-content {
+      display: none;
       position: absolute;
+      background-color: #444;
       top: 100%;
       left: 0;
-      background-color: #444;
-      min-width: 180px;
-      display: none;
-      flex-direction: column;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-      border-radius: 0 0 8px 8px;
-      z-index: 999;
-      animation: fadeIn 0.3s ease-in-out;
+      min-width: 160px;
+      z-index: 1;
     }
 
     .dropdown-content a {
-      color: #f2f2f2;
-      padding: 12px 16px;
-      text-decoration: none;
+      color: white;
+      padding: 10px;
       display: block;
-    }
-
-    .dropdown-content a:hover {
-      background-color: #666;
-      color: #fff;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: flex;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .main-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .carousel-wrapper {
-      background-color: #ff7f3f;
-      padding: 50px 0;
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .carousel-card {
-      width: 800px;
-      border-radius: 20px;
-      overflow: hidden;
-      background-color: white;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      position: relative;
-    }
-
-    .slide {
-      display: none;
-    }
-
-    .slide.active {
-      display: block;
-    }
-
-    .slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .caption-box {
-      padding: 30px;
-      background-color: #f7f9fc;
       text-align: left;
     }
 
-    .caption-box h2 {
-      margin: 0 0 10px;
-      color: #222;
-      font-size: 24px;
+    .dropdown:hover .dropdown-content {
+      display: block;
     }
 
-    .caption-box p {
-      margin: 0;
-      color: #555;
-      font-size: 16px;
+    .dropdown-btn::after {
+      content: " ▼";
+      font-size: 12px;
+      margin-left: 5px;
     }
 
-    .arrow {
-      position: absolute;
-      top: 45%;
-      font-size: 40px;
-      color: #fff;
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 8px 12px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 10;
-      user-select: none;
+    /* Carousel Section */
+    .carousel-wrapper {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #f0f2f8;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
     }
 
-    .arrow:hover {
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-
-    .arrow.left {
-      left: 15px;
-    }
-
-    .arrow.right {
-      right: 15px;
-    }
-
-    .carousel-controls {
+    .carousel {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      background-color: #f7f9fc;
+      transition: transform 0.5s ease-in-out;
     }
 
-    .carousel-btn {
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      user-select: none;
-      background-color: transparent;
+    .carousel-item {
+      min-width: 100%;
+      transition: opacity 0.5s;
+      position: relative;
     }
 
-    .carousel-btn:hover {
-      text-decoration: underline;
+    .carousel img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .caption {
+      padding: 20px;
+      background: #f0f2f8;
+      text-align: center;
+    }
+
+    .caption h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .caption p {
+      font-size: 16px;
+      color: #555;
     }
 
     .indicators {
       text-align: center;
+      margin: 10px 0;
     }
 
-    .indicator {
-      display: inline-block;
-      height: 10px;
-      width: 10px;
+    .dot {
+      height: 12px;
+      width: 12px;
       margin: 0 5px;
-      background-color: #ddd;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .dot.active {
+      background-color: #ff9900;
+    }
+
+    .arrows {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 15px;
+    }
+
+    .arrow {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 10px 15px;
       border-radius: 50%;
       cursor: pointer;
-      transition: background 0.3s ease;
+      font-weight: bold;
     }
 
-    .indicator.active {
-      background-color: #ffa500;
-    }
   </style>
 </head>
 <body>
@@ -214,84 +170,77 @@
     <a href="#">About</a>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content">
-
-    <!-- Carousel Section -->
-    <div class="carousel-wrapper">
-      <div class="carousel-card">
-
-        <!-- Arrows -->
-        <div class="arrow left" onclick="changeSlide(-1)">&#10094;</div>
-        <div class="arrow right" onclick="changeSlide(1)">&#10095;</div>
-
-        <!-- Slides -->
-        <div class="slide active">
-          <img src="IMG_0737.jpeg?text=Slide+1" alt="Slide 1">
-          <div class="caption-box">
-            <h2>Khwaabon Ka Safar</h2>
-            <p>Chandni raaton mein baatein teri, dil ke armaan kehte hain kahaani meri.</p>
-          </div>
+  <!-- Carousel Section -->
+  <div class="carousel-wrapper">
+    <div class="carousel" id="carousel">
+      <div class="carousel-item">
+        <img src="IMG_0737.jpeg" alt="Slide 1">
+        <div class="caption">
+          <h2>Chandni Raaton Mein</h2>
+          <p>Chandni raaton mein tera zikr ho,  
+             Dil ke kone mein ek fikr ho.</p>
         </div>
-
-        <div class="slide">
-          <img src="IMG_0738.jpeg?text=Slide+2" alt="Slide 2">
-          <div class="caption-box">
-            <h2>Pal Do Pal</h2>
-            <p>Pal do pal ka saath tha tera, par yaadon ka asar gehra.</p>
-          </div>
+      </div>
+      <div class="carousel-item">
+        <img src="IMG_0738.jpeg" alt="Slide 2">
+        <div class="caption">
+          <h2>Tere Bin</h2>
+          <p>Tere bin jeena hai jaise,  
+             Saansein ho lekin hawa na ho.</p>
         </div>
-
-        <div class="slide">
-          <img src="IMG_0739.jpeg?text=Slide+3" alt="Slide 3">
-          <div class="caption-box">
-            <h2>Chupke Se</h2>
-            <p>Chupke se aayi thi tu zindagi mein, jaise khushbu kisi phool ki ho hawa mein.</p>
-          </div>
-        </div>
-
-        <!-- Controls -->
-        <div class="carousel-controls">
-          <span class="carousel-btn" onclick="changeSlide(-1)">Prev</span>
-          <div class="indicators">
-            <span class="indicator active" onclick="goToSlide(0)"></span>
-            <span class="indicator" onclick="goToSlide(1)"></span>
-            <span class="indicator" onclick="goToSlide(2)"></span>
-          </div>
-          <span class="carousel-btn" onclick="changeSlide(1)">Next</span>
+      </div>
+      <div class="carousel-item">
+        <img src="IMG_0739.jpeg" alt="Slide 3">
+        <div class="caption">
+          <h2>Khwabon Ka Sheher</h2>
+          <p>Bas tere khwabon ka sheher basa liya,  
+             Har khushi mein tera saaya pa liya.</p>
         </div>
       </div>
     </div>
+
+    <!-- Arrows -->
+    <div class="arrows">
+      <div class="arrow" onclick="prevSlide()">❮</div>
+      <div class="arrow" onclick="nextSlide()">❯</div>
+    </div>
+
+    <!-- Indicators -->
+    <div class="indicators">
+      <span class="dot active" onclick="goToSlide(0)"></span>
+      <span class="dot" onclick="goToSlide(1)"></span>
+      <span class="dot" onclick="goToSlide(2)"></span>
+    </div>
   </div>
 
-  <!-- JavaScript -->
   <script>
-    let slideIndex = 0;
-    const slides = document.querySelectorAll(".slide");
-    const indicators = document.querySelectorAll(".indicator");
+    let currentSlide = 0;
+    const carousel = document.getElementById('carousel');
+    const dots = document.querySelectorAll('.dot');
 
     function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove("active");
-        indicators[i].classList.remove("active");
-      });
-      slides[index].classList.add("active");
-      indicators[index].classList.add("active");
+      const slideWidth = carousel.clientWidth;
+      carousel.style.transform = `translateX(-${index * slideWidth}px)`;
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[index].classList.add('active');
+      currentSlide = index;
     }
 
-    function changeSlide(n) {
-      slideIndex = (slideIndex + n + slides.length) % slides.length;
-      showSlide(slideIndex);
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % 3;
+      showSlide(currentSlide);
     }
 
-    function goToSlide(n) {
-      slideIndex = n;
-      showSlide(slideIndex);
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + 3) % 3;
+      showSlide(currentSlide);
     }
 
-    setInterval(() => {
-      changeSlide(1);
-    }, 5000);
+    function goToSlide(index) {
+      showSlide(index);
+    }
+
+    window.addEventListener('resize', () => showSlide(currentSlide));
   </script>
 
 </body>
