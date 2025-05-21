@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Navbar & Hinglish Poetry Carousel</title>
+  <title>Navbar & Poetry Carousel</title>
   <style>
     body {
       margin: 0;
@@ -61,12 +61,20 @@
       display: block;
     }
 
+    /* Main Wrapper */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     /* Carousel Background */
     .carousel-wrapper {
       background-color: #ff7f3f;
       padding: 50px 0;
       display: flex;
       justify-content: center;
+      width: 100%;
     }
 
     /* Carousel Card Style */
@@ -111,6 +119,32 @@
       font-size: 16px;
     }
 
+    /* Arrows */
+    .arrow {
+      position: absolute;
+      top: 45%;
+      font-size: 40px;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 8px 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      user-select: none;
+    }
+
+    .arrow:hover {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .arrow.left {
+      left: 15px;
+    }
+
+    .arrow.right {
+      right: 15px;
+    }
+
     .carousel-controls {
       display: flex;
       justify-content: space-between;
@@ -120,7 +154,7 @@
     }
 
     .carousel-btn {
-      color: #fff;
+      color: #000;
       font-weight: bold;
       cursor: pointer;
       user-select: none;
@@ -169,42 +203,55 @@
     <a href="#">About</a>
   </div>
 
-  <!-- Carousel Section -->
-  <div class="carousel-wrapper">
-    <div class="carousel-card">
-      <div class="slide active">
-        <img src="IMG_0737.jpeg?text=Slide+1" alt="Slide 1">
-        <div class="caption-box">
-          <h2>Khwaabon Ka Safar</h2>
-          <p>Chandni raaton mein baatein teri, dil ke armaan kehte hain kahaani meri.</p>
-        </div>
-      </div>
-      <div class="slide">
-        <img src="IMG_0738.jpeg?text=Slide+2" alt="Slide 2">
-        <div class="caption-box">
-          <h2>Pal Do Pal</h2>
-          <p>Pal do pal ka saath tha tera, par yaadon ka asar gehra.</p>
-        </div>
-      </div>
-      <div class="slide">
-        <img src="IMG_0739.jpeg?text=Slide+3" alt="Slide 3">
-        <div class="caption-box">
-          <h2>Chupke Se</h2>
-          <p>Chupke se aayi thi tu zindagi mein, jaise khushbu kisi phool ki ho hawa mein.</p>
-        </div>
-      </div>
+  <!-- Main Content -->
+  <div class="main-content">
 
-      <!-- Controls -->
-      <div class="carousel-controls">
-        <span class="carousel-btn" onclick="changeSlide(-1)">Prev</span>
-        <div class="indicators">
-          <span class="indicator active" onclick="goToSlide(0)"></span>
-          <span class="indicator" onclick="goToSlide(1)"></span>
-          <span class="indicator" onclick="goToSlide(2)"></span>
+    <!-- Carousel Section -->
+    <div class="carousel-wrapper">
+      <div class="carousel-card">
+
+        <!-- Arrows -->
+        <div class="arrow left" onclick="changeSlide(-1)">&#10094;</div>
+        <div class="arrow right" onclick="changeSlide(1)">&#10095;</div>
+
+        <!-- Slides -->
+        <div class="slide active">
+          <img src="IMG_0737.jpeg?text=Slide+1" alt="Slide 1">
+          <div class="caption-box">
+            <h2>Khwaabon Ka Safar</h2>
+            <p>Chandni raaton mein baatein teri, dil ke armaan kehte hain kahaani meri.</p>
+          </div>
         </div>
-        <span class="carousel-btn" onclick="changeSlide(1)">Next</span>
+
+        <div class="slide">
+          <img src="IMG_0738.jpeg?text=Slide+2" alt="Slide 2">
+          <div class="caption-box">
+            <h2>Pal Do Pal</h2>
+            <p>Pal do pal ka saath tha tera, par yaadon ka asar gehra.</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="IMG_0739.jpeg?text=Slide+3" alt="Slide 3">
+          <div class="caption-box">
+            <h2>Chupke Se</h2>
+            <p>Chupke se aayi thi tu zindagi mein, jaise khushbu kisi phool ki ho hawa mein.</p>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="carousel-controls">
+          <span class="carousel-btn" onclick="changeSlide(-1)">Prev</span>
+          <div class="indicators">
+            <span class="indicator active" onclick="goToSlide(0)"></span>
+            <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
+          </div>
+          <span class="carousel-btn" onclick="changeSlide(1)">Next</span>
+        </div>
       </div>
     </div>
+
   </div>
 
   <!-- JavaScript -->
