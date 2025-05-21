@@ -1,43 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Navbar and Carousel with Controls</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Navbar with Dropdown & Carousel with Indicators</title>
   <style>
-    /* Reset and general styles */
+    /* General Reset */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
     }
 
-    /* Navbar styles */
+    /* Navbar Styles */
     .navbar {
       background-color: #333;
       overflow: hidden;
     }
 
-    .navbar a {
+    .navbar a, .dropdown-btn {
       float: left;
       display: block;
       color: #f2f2f2;
-      text-align: center;
       padding: 14px 20px;
       text-decoration: none;
+      text-align: center;
     }
 
-    .navbar a:hover {
+    .navbar a:hover, .dropdown:hover .dropdown-btn {
       background-color: #ddd;
       color: black;
     }
 
-    /* Carousel styles */
+    .dropdown {
+      float: left;
+      overflow: hidden;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 150px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Carousel Styles */
     .carousel {
       position: relative;
       max-width: 100%;
-      margin: 20px auto;
-      overflow: hidden;
       height: 400px;
+      overflow: hidden;
+      margin: 20px auto;
     }
 
     .carousel img {
@@ -58,10 +89,10 @@
       transform: translateY(-50%);
       background-color: rgba(0,0,0,0.5);
       color: white;
-      font-size: 18px;
       padding: 10px;
-      cursor: pointer;
       border: none;
+      cursor: pointer;
+      font-size: 18px;
     }
 
     .prev {
@@ -75,6 +106,28 @@
     .prev:hover, .next:hover {
       background-color: rgba(0,0,0,0.8);
     }
+
+    /* Indicators */
+    .indicators {
+      text-align: center;
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+    }
+
+    .indicator {
+      display: inline-block;
+      height: 12px;
+      width: 12px;
+      margin: 0 4px;
+      background-color: #bbb;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .indicator.active {
+      background-color: #717171;
+    }
   </style>
 </head>
 <body>
@@ -83,31 +136,49 @@
   <div class="navbar">
     <a href="#">Home</a>
     <a href="#">Gallery</a>
+    <div class="dropdown">
+      <button class="dropdown-btn">Services</button>
+      <div class="dropdown-content">
+        <a href="#">Web Design</a>
+        <a href="#">Hosting</a>
+        <a href="#">SEO</a>
+      </div>
+    </div>
     <a href="#">Contact</a>
     <a href="#">About</a>
   </div>
 
   <!-- Carousel -->
   <div class="carousel">
-    <img class="slide active" src="IMG_0737.jpeg?text=Slide+1" alt="Slide 1">
-    <img class="slide" src="IMG_0738.jpeg?text=Slide+2" alt="Slide 2">
-    <img class="slide" src="IMG_0739.jpeg?text=Slide+3" alt="Slide 3">
-    
+    <img class="slide active" src="IMG_0737.jpeg text=Slide+1" alt="Slide 1">
+    <img class="slide" src="IMG_0738.jpeg text=Slide+2" alt="Slide 2">
+    <img class="slide" src="IMG_0739.jpeg text=Slide+3" alt="Slide 3">
+
     <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
     <button class="next" onclick="changeSlide(1)">&#10095;</button>
+
+    <!-- Indicators -->
+    <div class="indicators">
+      <span class="indicator active" onclick="goToSlide(0)"></span>
+      <span class="indicator" onclick="goToSlide(1)"></span>
+      <span class="indicator" onclick="goToSlide(2)"></span>
+    </div>
   </div>
 
+  <!-- JavaScript -->
   <script>
     let slideIndex = 0;
     const slides = document.querySelectorAll(".slide");
+    const indicators = document.querySelectorAll(".indicator");
 
     function showSlide(index) {
       slides.forEach((slide, i) => {
         slide.classList.remove("active");
-        if (i === index) {
-          slide.classList.add("active");
-        }
+        indicators[i].classList.remove("active");
       });
+
+      slides[index].classList.add("active");
+      indicators[index].classList.add("active");
     }
 
     function changeSlide(n) {
@@ -115,7 +186,12 @@
       showSlide(slideIndex);
     }
 
-    // Optional: auto-slide every 5 seconds
+    function goToSlide(n) {
+      slideIndex = n;
+      showSlide(slideIndex);
+    }
+
+    // Auto slide every 5 seconds
     setInterval(() => {
       changeSlide(1);
     }, 5000);
